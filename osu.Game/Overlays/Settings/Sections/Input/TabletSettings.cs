@@ -24,6 +24,8 @@ namespace osu.Game.Overlays.Settings.Sections.Input
 
         private readonly ITabletHandler tabletHandler;
 
+        private readonly TabletKeyBindingPanel tabletKeyBinding;
+
         private readonly Bindable<bool> enabled = new BindableBool(true);
 
         private readonly Bindable<Vector2> areaOffset = new Bindable<Vector2>();
@@ -63,9 +65,10 @@ namespace osu.Game.Overlays.Settings.Sections.Input
 
         protected override LocalisableString Header => TabletSettingsStrings.Tablet;
 
-        public TabletSettings(ITabletHandler tabletHandler)
+        public TabletSettings(ITabletHandler tabletHandler, TabletKeyBindingPanel tabletKeyBinding)
         {
             this.tabletHandler = tabletHandler;
+            this.tabletKeyBinding = tabletKeyBinding;
         }
 
         [BackgroundDependencyLoader]
@@ -146,6 +149,11 @@ namespace osu.Game.Overlays.Settings.Sections.Input
                             {
                                 forceAspectRatio((float)host.Window.ClientSize.Width / host.Window.ClientSize.Height);
                             }
+                        },
+                        new SettingsButton
+                        {
+                            Text = "Tablet keybinds",
+                            Action = tabletKeyBinding.ToggleVisibility,
                         },
                         new SettingsSlider<float>
                         {

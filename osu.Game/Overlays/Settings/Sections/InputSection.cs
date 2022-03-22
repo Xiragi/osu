@@ -19,6 +19,7 @@ namespace osu.Game.Overlays.Settings.Sections
     public class InputSection : SettingsSection
     {
         private readonly KeyBindingPanel keyConfig;
+        private readonly TabletKeyBindingPanel tabletKeyConfig;
 
         public override LocalisableString Header => InputSettingsStrings.InputSectionHeader;
 
@@ -30,9 +31,10 @@ namespace osu.Game.Overlays.Settings.Sections
             Icon = FontAwesome.Solid.Keyboard
         };
 
-        public InputSection(KeyBindingPanel keyConfig)
+        public InputSection(KeyBindingPanel keyConfig, TabletKeyBindingPanel tabletKeyConfig)
         {
             this.keyConfig = keyConfig;
+            this.tabletKeyConfig = tabletKeyConfig;
         }
 
         [BackgroundDependencyLoader]
@@ -40,7 +42,7 @@ namespace osu.Game.Overlays.Settings.Sections
         {
             Children = new Drawable[]
             {
-                new BindingSettings(keyConfig),
+                new BindingSettings(keyConfig)
             };
 
             foreach (var handler in host.AvailableInputHandlers)
@@ -60,7 +62,7 @@ namespace osu.Game.Overlays.Settings.Sections
             {
                 // ReSharper disable once SuspiciousTypeConversion.Global (net standard fuckery)
                 case ITabletHandler th:
-                    section = new TabletSettings(th);
+                    section = new TabletSettings(th, tabletKeyConfig);
                     break;
 
                 case MouseHandler mh:

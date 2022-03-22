@@ -25,7 +25,9 @@ namespace osu.Game.Overlays
         {
             new GeneralSection(),
             new SkinSection(),
-            new InputSection(createSubPanel(new KeyBindingPanel())),
+            new InputSection(
+                createSubPanel(new KeyBindingPanel()),
+                createSubPanel(new TabletKeyBindingPanel())),
             new UserInterfaceSection(),
             new GameplaySection(),
             new RulesetSection(),
